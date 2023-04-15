@@ -16,7 +16,7 @@ RP2040 chip according to how it is connected up on the Pico.
 To use this crate, your `Cargo.toml` file should contain:
 
 ```toml
-rp-pico = "0.5.0"
+rp-pico = "0.7.0"
 ```
 
 In your program, you will need to call `rp_pico::Pins::new` to create
@@ -27,15 +27,15 @@ devices. See the [examples](./examples) folder for more details.
 
 ### General Instructions
 
-To compile an example, clone the _rp-hal_ repository and run:
+To compile an example, clone the _rp-hal-boards_ repository and run:
 
 ```console
-rp-hal/boards/rp-pico $ cargo build --release --example <name>
+rp-hal-boards/boards/rp-pico $ cargo build --release --example <name>
 ```
 
 You will get an ELF file called
 `./target/thumbv6m-none-eabi/release/examples/<name>`, where the `target`
-folder is located at the top of the _rp-hal_ repository checkout. Normally
+folder is located at the top of the _rp-hal-boards_ repository checkout. Normally
 you would also need to specify `--target=thumbv6m-none-eabi` but when
 building examples from this git repository, that is set as the default.
 
@@ -44,7 +44,7 @@ USB drive exported by the RP2040 bootloader, simply boot your board into
 bootloader mode and run:
 
 ```console
-rp-hal/boards/rp-pico $ cargo run --release --example <name>
+rp-hal-boards/boards/rp-pico $ cargo run --release --example <name>
 ```
 
 If you get an error about not being able to find `elf2uf2-rs`, try:
@@ -54,6 +54,32 @@ $ cargo install elf2uf2-rs
 ```
 then try repeating the `cargo run` command above.
 
+### From Scratch
+
+To start a basic project from scratch, create a project using `cargo new project-name`. Within the
+project directory, run `cargo add rp-pico`, `cargo add cortex-m-rt`, and `cargo add panic-halt`. The
+first command will this HAL (Hardware Abstraction Layer), the second is required for the `#[entry]` macro, and _panic-halt_ creates a simple panic function, which just halts.
+
+You'll also need to copy the cargo config file from the [repo](https://github.com/rp-rs/rp-hal-boards/blob/main/.cargo/config). It specifies the target and optimizing flags to the linker. You'll also need to copy [_memory.x_](https://github.com/rp-rs/rp-hal-boards/blob/main/memory.x) to your project root. This file tells the linker the flash and RAM layout, so it won't clobber the bootloader or write to an out of bounds memory address. 
+
+The simplest working example, which does nothing except loop forever, is:
+
+```ignore
+#![no_std]
+#![no_main]
+use rp_pico::entry;
+use panic_halt as _;
+#[entry]
+fn see_doesnt_have_to_be_called_main() -> ! {
+  loop {}
+}
+```
+
+It can be placed in _/src/main.rs_. 
+
+You can use `cargo run` to compile and install it. 
+**Note**: You won't see any activity since this program does nothing. You can use the examples provided
+to add more functionality. 
 ### [pico_blinky](./examples/pico_blinky.rs)
 
 Flashes the Pico's on-board LED on and off.
@@ -117,7 +143,7 @@ The steps are:
 3. Make some changes to the code or documentation.
 4. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 5. Push to the Feature Branch (`git push origin feature/AmazingFeature`)
-6. Create a [New Pull Request](https://github.com/rp-rs/rp-hal/pulls)
+6. Create a [New Pull Request](https://github.com/rp-rs/rp-hal-boards/pulls)
 7. An admin will review the Pull Request and discuss any changes that may be required.
 8. Once everyone is happy, the Pull Request can be merged by an admin, and your work is part of our project!
 

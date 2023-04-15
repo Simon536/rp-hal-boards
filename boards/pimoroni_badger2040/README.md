@@ -1,4 +1,4 @@
-# [pimoroni-badger2040] - Board Support for the [Pimoroni Badger2040]
+# [pimoroni_badger2040] - Board Support for the [Pimoroni Badger2040]
 
 You should include this crate if you are writing code that you want to run on
 a [Pimoroni Badger2040] - a conference-style badge built around an e-paper
@@ -8,7 +8,7 @@ This crate includes the [rp2040-hal], but also configures each pin of the
 RP2040 chip according to how it is connected up on the Badger2040.
 
 [Pimoroni Badger2040]: https://shop.pimoroni.com/products/badger-2040/
-[pimoroni-badger2040]: https://github.com/rp-rs/rp-hal-boards/tree/main/boards/pimoroni-badger2040
+[pimoroni_badger2040]: https://github.com/rp-rs/rp-hal-boards/tree/main/boards/pimoroni_badger2040
 [rp2040-hal]: https://github.com/rp-rs/rp-hal/tree/main/rp2040-hal
 [Raspberry Silicon RP2040]: https://www.raspberrypi.org/products/rp2040/
 
@@ -17,7 +17,7 @@ RP2040 chip according to how it is connected up on the Badger2040.
 To use this crate, your `Cargo.toml` file should contain:
 
 ```toml
-pimoroni-badger2040 = "0.1.0"
+pimoroni_badger2040 = "0.4.0"
 ```
 
 In your program, you will need to call `pimoroni_badger2040::Board::take().unwrap()` to create
@@ -28,15 +28,15 @@ devices and configure common clocks. See the [examples](./examples) folder for m
 
 ### General Instructions
 
-To compile an example, clone the _rp-hal_ repository and run:
+To compile an example, clone the _rp-hal-boards_ repository and run:
 
 ```console
-rp-hal/boards/pimoroni-badger2040 $ cargo build --release --example <name>
+rp-hal-boards/boards/pimoroni_badger2040 $ cargo build --release --example <name>
 ```
 
 You will get an ELF file called
 `./target/thumbv6m-none-eabi/release/examples/<name>`, where the `target`
-folder is located at the top of the _rp-hal_ repository checkout. Normally
+folder is located at the top of the _rp-hal-boards_ repository checkout. Normally
 you would also need to specify `--target=thumbv6m-none-eabi` but when
 building examples from this git repository, that is set as the default.
 
@@ -45,7 +45,7 @@ USB drive exported by the RP2040 bootloader, simply boot your board into
 bootloader mode and run:
 
 ```console
-rp-hal/boards/pimoroni-badger2040 $ cargo run --release --example <name>
+rp-hal-boards/boards/pimoroni_badger2040 $ cargo run --release --example <name>
 ```
 
 If you get an error about not being able to find `elf2uf2-rs`, try:
@@ -72,7 +72,7 @@ The steps are:
 3. Make some changes to the code or documentation.
 4. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 5. Push to the Feature Branch (`git push origin feature/AmazingFeature`)
-6. Create a [New Pull Request](https://github.com/rp-rs/rp-hal/pulls)
+6. Create a [New Pull Request](https://github.com/rp-rs/rp-hal-boards/pulls)
 7. An admin will review the Pull Request and discuss any changes that may be required.
 8. Once everyone is happy, the Pull Request can be merged by an admin, and your work is part of our project!
 
